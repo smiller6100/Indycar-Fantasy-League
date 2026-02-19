@@ -1,0 +1,3037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Fantasy League 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --racing-red: #E10600;
+            --carbon-black: #0A0A0A;
+            --dark-bg: #15181c;
+            --card-bg: #1e2328;
+            --silver: #C0C0C0;
+            --gold: #FFD700;
+            --sector-green: #06FFA5;
+            --warning-yellow: #FFC800;
+            --orange: #FF6B00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--silver);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--carbon-black), #1a1a1a);
+            border-bottom: 3px solid var(--racing-red);
+            display: flex;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--orange), #ff8533);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 20px 30px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .logo::after {
+            content: '2026';
+            position: absolute;
+            bottom: 18px;
+            right: 30px;
+            font-size: 0.5rem;
+            background: var(--racing-red);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+
+        .nav {
+            display: flex;
+            gap: 5px;
+            flex: 1;
+            padding: 10px;
+        }
+
+        .nav-tab {
+            padding: 12px 20px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--silver);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(225, 6, 0, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-tab:hover::before {
+            left: 100%;
+        }
+
+        .nav-tab:hover {
+            background: rgba(225, 6, 0, 0.1);
+            border-color: var(--racing-red);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, var(--racing-red), #b00500);
+            color: white;
+            border-color: var(--racing-red);
+            box-shadow: 0 4px 15px rgba(225, 6, 0, 0.4);
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, white, var(--silver));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid;
+            border-image: linear-gradient(90deg, var(--racing-red), transparent) 1;
+            position: relative;
+        }
+
+        .page-title::before {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 100px;
+            height: 3px;
+            background: var(--gold);
+        }
+
+        /* Cards */
+        .card {
+            background: linear-gradient(135deg, var(--card-bg), #252a30);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .card-title::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--racing-red);
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Buttons */
+        .btn {
+            font-family: 'Orbitron', sans-serif;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--racing-red), #b00500);
+            color: white;
+            box-shadow: 0 4px 15px rgba(225, 6, 0, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ff0800, var(--racing-red));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(225, 6, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--racing-red);
+        }
+
+        /* Form Elements */
+        .form-select {
+            width: 100%;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2));
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-select:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--racing-red);
+            box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
+        }
+
+        .form-select option {
+            background: var(--card-bg);
+            padding: 12px;
+        }
+
+        .form-select optgroup {
+            background: var(--carbon-black);
+            font-weight: 700;
+            color: var(--racing-red);
+            padding: 8px;
+        }
+
+        /* Tier Badge */
+        .tier-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .tier-a { 
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.1)); 
+            color: var(--gold); 
+            border: 2px solid var(--gold); 
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .tier-b { 
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.3), rgba(192, 192, 192, 0.1)); 
+            color: var(--silver); 
+            border: 2px solid var(--silver);
+            text-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+        }
+        
+        .tier-c { 
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.1)); 
+            color: #CD7F32; 
+            border: 2px solid #CD7F32;
+            text-shadow: 0 0 10px rgba(205, 127, 50, 0.3);
+        }
+
+        /* Live Race */
+        .live-header {
+            background: linear-gradient(135deg, var(--racing-red), #8B0000);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(225, 6, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .live-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .live-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .live-status {
+            font-size: 1rem;
+            color: var(--sector-green);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Live Team Rows */
+        .live-team-row {
+            display: grid;
+            grid-template-columns: 35px 1fr auto 70px;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border-left: 3px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 8px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .live-team-row:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            transform: translateX(5px);
+        }
+
+        .live-team-row.highlight-user {
+            background: linear-gradient(135deg, rgba(225, 6, 0, 0.15), rgba(139, 0, 0, 0.05));
+            border-left-color: var(--racing-red);
+        }
+
+        .live-team-rank {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-align: center;
+        }
+
+        .live-team-info {
+            min-width: 0;
+        }
+
+        .live-team-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .live-team-owner {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            margin-top: 2px;
+        }
+
+        .live-team-breakdown {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+            font-size: 0.85rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        .live-driver-score {
+            padding: 4px 8px;
+            background: rgba(6, 255, 165, 0.15);
+            border-radius: 4px;
+            color: var(--sector-green);
+            text-align: center;
+        }
+
+        .live-driver-score.wildcard {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(255, 215, 0, 0.15));
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .live-constructor-score {
+            padding: 4px 8px;
+            background: rgba(255, 215, 0, 0.15);
+            border-radius: 4px;
+            color: var(--gold);
+            text-align: center;
+        }
+
+        .live-team-total {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            color: var(--sector-green);
+            text-align: right;
+        }
+
+        /* Compact Position Display */
+        .position-compact {
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 6px;
+            border-left: 3px solid var(--racing-red);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .position-compact:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(3px);
+        }
+
+        /* Live Positions Horizontal */
+        .live-positions-horizontal {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+        }
+
+        .live-pos-chip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 8px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .live-pos-chip:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-color: var(--racing-red);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(225, 6, 0, 0.3);
+        }
+
+        .pos-chip-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .pos-chip-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        /* Live Positions Sidebar - REMOVED */
+
+        .position-list {
+            list-style: none;
+        }
+
+        .position-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border-left: 4px solid var(--racing-red);
+            margin-bottom: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .position-item:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            transform: translateX(8px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .pos-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--gold);
+            min-width: 50px;
+        }
+
+        .pos-driver {
+            flex: 1;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .pos-team {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-right: 20px;
+        }
+
+        .pos-points {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--sector-green);
+        }
+
+        /* Standings Table */
+        .standings-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .standings-table thead {
+            background: linear-gradient(135deg, rgba(225, 6, 0, 0.3), rgba(139, 0, 0, 0.2));
+        }
+
+        .standings-table th {
+            padding: 18px 15px;
+            text-align: left;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            border-bottom: 3px solid var(--racing-red);
+        }
+
+        .standings-table th:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .standings-table th:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .standings-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+        }
+
+        .standings-table tr {
+            transition: all 0.3s ease;
+        }
+
+        .standings-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(1.01);
+        }
+
+        .standings-table tbody tr:hover td {
+            background: transparent;
+        }
+
+        .standings-table tbody tr td:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .standings-table tbody tr td:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .standings-table .pos {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--gold);
+        }
+
+        .standings-table .team-name {
+            font-weight: 700;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .standings-table .points {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--sector-green);
+        }
+
+        /* Results */
+        .results-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+            border-left: 4px solid var(--racing-red);
+            padding: 22px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-card:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            transform: translateX(8px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .result-race {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: white;
+        }
+
+        .result-date {
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        .result-lineup {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .result-driver {
+            font-size: 0.95rem;
+            padding: 8px 0;
+        }
+
+        .result-total {
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            text-align: right;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--sector-green);
+            text-shadow: 0 0 10px rgba(6, 255, 165, 0.3);
+        }
+
+        /* Admin */
+        .admin-section {
+            margin-bottom: 40px;
+        }
+
+        .admin-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .admin-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--racing-red);
+        }
+
+        .admin-info {
+            flex: 1;
+        }
+
+        .admin-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .admin-details {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 15px;
+            font-size: 0.75rem;
+        }
+
+        /* Rules Subtabs */
+        .rules-subtabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .rules-subtab {
+            font-family: 'Rajdhani', sans-serif;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--silver);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .rules-subtab:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .rules-subtab.active {
+            background: rgba(225, 6, 0, 0.2);
+            border-bottom-color: var(--racing-red);
+            color: white;
+        }
+
+        .rules-content {
+            display: none;
+        }
+
+        .rules-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Admin Subtabs (same styling as rules) */
+        .admin-subtabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 5px;
+        }
+
+        .admin-subtab {
+            font-family: 'Rajdhani', sans-serif;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: var(--silver);
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .admin-subtab:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+
+        .admin-subtab.active {
+            background: rgba(225, 6, 0, 0.2);
+            border-bottom-color: var(--racing-red);
+            color: white;
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 2px solid var(--racing-red);
+            border-radius: 8px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--silver);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--racing-red);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+            .grid-3 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-wrap: wrap;
+            }
+
+            .nav {
+                width: 100%;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-tab {
+                flex: 1;
+                justify-content: center;
+                padding: 15px 10px;
+                font-size: 0.75rem;
+            }
+
+            .grid-4, .grid-3, .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .result-lineup {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login/Registration Modal -->
+    <div id="login-modal" class="modal" style="display: flex; align-items: center; justify-content: center;">
+        <div class="modal-content" style="max-width: 500px; margin: 20px;">
+            <h2 style="font-family: 'Orbitron'; font-weight: 900; color: white; margin-bottom: 20px; text-align: center;">
+                F1 FANTASY LEAGUE 2026
+            </h2>
+            
+            <div id="login-form">
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--silver);">TEAM CODE</label>
+                    <input type="text" id="team-code-input" placeholder="Enter your team code" 
+                           style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.15); 
+                                  border-radius: 6px; color: white; font-family: 'Rajdhani'; font-size: 1rem; text-transform: uppercase;">
+                </div>
+                
+                <button class="btn btn-primary" onclick="loginWithCode()" style="width: 100%; margin-bottom: 15px;">
+                    ACCESS MY TEAM
+                </button>
+                
+                <div style="text-align: center; margin: 20px 0; opacity: 0.6;">
+                    — OR —
+                </div>
+                
+                <button class="btn btn-secondary" onclick="showRegistration()" style="width: 100%;">
+                    NEW TEAM? REGISTER HERE
+                </button>
+            </div>
+            
+            <div id="registration-form" style="display: none;">
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--silver);">TEAM NAME</label>
+                    <input type="text" id="reg-team-name" placeholder="e.g., Speed Demons" 
+                           style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.15); 
+                                  border-radius: 6px; color: white; font-family: 'Rajdhani'; font-size: 1rem;">
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--silver);">YOUR NAME</label>
+                    <input type="text" id="reg-owner-name" placeholder="e.g., John Smith" 
+                           style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.15); 
+                                  border-radius: 6px; color: white; font-family: 'Rajdhani'; font-size: 1rem;">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--silver);">EMAIL</label>
+                    <input type="email" id="reg-email" placeholder="your@email.com" 
+                           style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.15); 
+                                  border-radius: 6px; color: white; font-family: 'Rajdhani'; font-size: 1rem;">
+                </div>
+                
+                <button class="btn btn-primary" onclick="registerTeam()" style="width: 100%; margin-bottom: 10px;">
+                    CREATE TEAM
+                </button>
+                
+                <button class="btn btn-secondary" onclick="showLogin()" style="width: 100%;">
+                    BACK TO LOGIN
+                </button>
+            </div>
+            
+            <div id="registration-success" style="display: none; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 20px;">✓</div>
+                <h3 style="color: var(--sector-green); margin-bottom: 15px;">TEAM CREATED!</h3>
+                <div style="background: rgba(6, 255, 165, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 2px solid var(--sector-green);">
+                    <div style="margin-bottom: 10px; opacity: 0.8;">Your Team Code:</div>
+                    <div id="generated-code" style="font-family: 'Orbitron'; font-size: 2rem; font-weight: 900; color: var(--sector-green); letter-spacing: 3px;">
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px; line-height: 1.6; opacity: 0.9;">
+                    Save this code! You'll need it to access your team.<br>
+                    A confirmation email with your code has been sent.
+                </div>
+                <button class="btn btn-primary" onclick="enterWithNewCode()" style="width: 100%;">
+                    CONTINUE TO MY TEAM
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Password Modal -->
+    <div id="admin-password-modal" class="modal" style="display: none; align-items: center; justify-content: center;">
+        <div class="modal-content" style="max-width: 400px; margin: 20px;">
+            <h2 style="font-family: 'Orbitron'; font-weight: 900; color: white; margin-bottom: 20px; text-align: center;">
+                ADMIN ACCESS
+            </h2>
+            
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--silver);">ADMIN PASSWORD</label>
+                <input type="password" id="admin-password-input" placeholder="Enter admin password" 
+                       onkeypress="if(event.key==='Enter') verifyAdminPassword()"
+                       style="width: 100%; padding: 12px; background: rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.15); 
+                              border-radius: 6px; color: white; font-family: 'Rajdhani'; font-size: 1rem;">
+            </div>
+            
+            <button class="btn btn-primary" onclick="verifyAdminPassword()" style="width: 100%; margin-bottom: 10px;">
+                UNLOCK ADMIN
+            </button>
+            
+            <button class="btn btn-secondary" onclick="closeAdminModal()" style="width: 100%;">
+                CANCEL
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">F1 FANTASY</div>
+        <div class="nav">
+            <button class="nav-tab active" onclick="showTab('lineup')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+                LINEUP
+            </button>
+            <button class="nav-tab" onclick="showTab('live')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                </svg>
+                LIVE
+            </button>
+            <button class="nav-tab" onclick="showTab('standings')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                    <path d="M4 22h16"/>
+                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                </svg>
+                STANDINGS
+            </button>
+            <button class="nav-tab" onclick="showTab('results')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="20" x2="12" y2="10"/>
+                    <line x1="18" y1="20" x2="18" y2="4"/>
+                    <line x1="6" y1="20" x2="6" y2="16"/>
+                </svg>
+                RESULTS
+            </button>
+            <button class="nav-tab" onclick="showTab('rules')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                    <polyline points="14 2 14 8 20 8"/>
+                    <line x1="16" y1="13" x2="8" y2="13"/>
+                    <line x1="16" y1="17" x2="8" y2="17"/>
+                    <polyline points="10 9 9 9 8 9"/>
+                </svg>
+                RULES
+            </button>
+            <button class="nav-tab" onclick="showAdminTab()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"/>
+                    <path d="M12 1v6m0 6v6M1 12h6m6 0h6"/>
+                    <path d="m4.93 4.93 4.24 4.24m5.66 5.66 4.24 4.24M4.93 19.07l4.24-4.24m5.66-5.66 4.24-4.24"/>
+                </svg>
+                ADMIN
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Submitted Lineup Display -->
+        <div id="submitted-lineup-banner" style="display: none; background: linear-gradient(135deg, rgba(6, 255, 165, 0.15), rgba(4, 180, 117, 0.15)); border: 2px solid var(--sector-green); border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <div style="font-family: 'Orbitron'; font-weight: 700; font-size: 1rem; color: white; text-transform: uppercase; letter-spacing: 2px;">
+                    ✅ YOUR LINEUP - <span id="banner-race">Round 1</span>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; font-size: 0.95rem;">
+                <div>
+                    <strong style="color: var(--silver);">Driver 1:</strong><br>
+                    <span id="banner-d1" style="color: white; font-weight: 600;"></span>
+                </div>
+                <div>
+                    <strong style="color: var(--silver);">Driver 2:</strong><br>
+                    <span id="banner-d2" style="color: white; font-weight: 600;"></span>
+                </div>
+                <div>
+                    <strong style="color: var(--silver);">Constructor:</strong><br>
+                    <span id="banner-constructor" style="color: white; font-weight: 600;"></span>
+                </div>
+                <div>
+                    <strong style="color: var(--silver);">Wildcard:</strong><br>
+                    <span id="banner-wildcard" style="color: white; font-weight: 600;"></span>
+                </div>
+                <div>
+                    <strong style="color: var(--silver);">Tier Points:</strong><br>
+                    <span id="banner-tier" style="color: var(--sector-green); font-family: 'Orbitron'; font-weight: 900; font-size: 1.1rem;"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- LINEUP TAB -->
+        <div id="lineup-tab" class="tab-content active">
+            <h1 class="page-title">MY LINEUP</h1>
+
+            <!-- Race Lock Countdown -->
+            <div class="card" style="background: linear-gradient(135deg, rgba(225, 6, 0, 0.15), rgba(139, 0, 0, 0.1)); border: 2px solid var(--racing-red); margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                    <div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 5px;">LINEUP LOCKS IN</div>
+                        <div id="countdown-timer" style="font-family: 'Orbitron'; font-size: 2rem; font-weight: 900; color: white;">
+                            --:--:--
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 5px;">QUALIFYING STARTS</div>
+                        <div id="lock-time" style="font-family: 'Rajdhani'; font-size: 1rem; font-weight: 700; color: var(--sector-green);">
+                            Saturday, March 15 • 2:00 PM EST
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Select Race</div>
+                <select class="form-select" id="race-selector" onchange="loadRaceLineup()">
+                    <option value="1">Round 1 - Australian GP (Melbourne) - March 16</option>
+                    <option value="2">Round 2 - Chinese GP (Shanghai) - March 23</option>
+                    <option value="3">Round 3 - Japanese GP (Suzuka) - April 6</option>
+                    <option value="4">Round 4 - Bahrain GP (Sakhir) - April 13</option>
+                    <option value="5">Round 5 - Saudi Arabian GP (Jeddah) - April 20</option>
+                    <option value="6">Round 6 - Miami GP - May 4</option>
+                    <option value="7">Round 7 - Emilia Romagna GP (Imola) - May 18</option>
+                    <option value="8">Round 8 - Monaco GP - May 25</option>
+                    <option value="9">Round 9 - Spanish GP (Barcelona) - June 1</option>
+                    <option value="10">Round 10 - Canadian GP (Montreal) - June 15</option>
+                    <option value="11">Round 11 - Austrian GP (Spielberg) - June 29</option>
+                    <option value="12">Round 12 - British GP (Silverstone) - July 6</option>
+                    <option value="13">Round 13 - Belgian GP (Spa) - July 27</option>
+                    <option value="14">Round 14 - Hungarian GP (Budapest) - August 3</option>
+                    <option value="15">Round 15 - Dutch GP (Zandvoort) - August 31</option>
+                    <option value="16">Round 16 - Italian GP (Monza) - September 7</option>
+                    <option value="17">Round 17 - Azerbaijan GP (Baku) - September 21</option>
+                    <option value="18">Round 18 - Singapore GP - October 5</option>
+                    <option value="19">Round 19 - United States GP (Austin) - October 19</option>
+                    <option value="20">Round 20 - Mexico City GP - October 26</option>
+                    <option value="21">Round 21 - São Paulo GP - November 9</option>
+                    <option value="22">Round 22 - Las Vegas GP - November 22</option>
+                    <option value="23">Round 23 - Qatar GP (Lusail) - November 30</option>
+                    <option value="24">Round 24 - Abu Dhabi GP - December 7</option>
+                </select>
+            </div>
+
+            <!-- Compact Lineup Selection -->
+            <div class="card">
+                <div class="card-title">Build Your Lineup</div>
+                
+                <div style="display: grid; gap: 15px;">
+                    <!-- Driver 1 -->
+                    <div>
+                        <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--silver); font-size: 0.9rem;">DRIVER 1</label>
+                        <select class="form-select" id="driver1" style="padding: 10px 15px;">
+                        <option value="">Select Driver</option>
+                        <optgroup label="Tier A (5 points)">
+                            <option value="Charles Leclerc|Ferrari|A|5">Charles Leclerc - Ferrari</option>
+                            <option value="Lando Norris|McLaren|A|5">Lando Norris - McLaren</option>
+                            <option value="Max Verstappen|Red Bull|A|5">Max Verstappen - Red Bull</option>
+                            <option value="Oscar Piastri|McLaren|A|5">Oscar Piastri - McLaren</option>
+                            <option value="Carlos Sainz|Williams|A|5">Carlos Sainz - Williams</option>
+                        </optgroup>
+                        <optgroup label="Tier B (3 points)">
+                            <option value="Lewis Hamilton|Ferrari|B|3">Lewis Hamilton - Ferrari</option>
+                            <option value="George Russell|Mercedes|B|3">George Russell - Mercedes</option>
+                            <option value="Pierre Gasly|Alpine|B|3">Pierre Gasly - Alpine</option>
+                            <option value="Alexander Albon|Williams|B|3">Alexander Albon - Williams</option>
+                        </optgroup>
+                        <optgroup label="Tier C (1 point)">
+                            <option value="Fernando Alonso|Aston Martin|C|1">Fernando Alonso - Aston Martin</option>
+                            <option value="Franco Colapinto|Alpine|C|1">Franco Colapinto - Alpine</option>
+                            <option value="Lance Stroll|Aston Martin|C|1">Lance Stroll - Aston Martin</option>
+                            <option value="Nico Hulkenberg|Audi|C|1">Nico Hulkenberg - Audi</option>
+                            <option value="Gabriel Bortoleto|Audi|C|1">Gabriel Bortoleto - Audi</option>
+                            <option value="Sergio Perez|Cadillac|C|1">Sergio Perez - Cadillac</option>
+                            <option value="Valtteri Bottas|Cadillac|C|1">Valtteri Bottas - Cadillac</option>
+                            <option value="Esteban Ocon|Haas|C|1">Esteban Ocon - Haas</option>
+                            <option value="Oliver Bearman|Haas|C|1">Oliver Bearman - Haas</option>
+                            <option value="Kimi Antonelli|Mercedes|C|1">Kimi Antonelli - Mercedes</option>
+                            <option value="Liam Lawson|Racing Bulls|C|1">Liam Lawson - Racing Bulls</option>
+                            <option value="Arvid Lindblad|Racing Bulls|C|1">Arvid Lindblad - Racing Bulls</option>
+                            <option value="Isack Hadjar|Red Bull|C|1">Isack Hadjar - Red Bull</option>
+                        </optgroup>
+                    </select>
+                    </div>
+
+                    <!-- Driver 2 -->
+                    <div>
+                        <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--silver); font-size: 0.9rem;">DRIVER 2</label>
+                        <select class="form-select" id="driver2" style="padding: 10px 15px;">
+                        <option value="">Select Driver</option>
+                        <optgroup label="Tier A (5 points)">
+                            <option value="Charles Leclerc|Ferrari|A|5">Charles Leclerc - Ferrari</option>
+                            <option value="Lando Norris|McLaren|A|5">Lando Norris - McLaren</option>
+                            <option value="Max Verstappen|Red Bull|A|5">Max Verstappen - Red Bull</option>
+                            <option value="Oscar Piastri|McLaren|A|5">Oscar Piastri - McLaren</option>
+                            <option value="Carlos Sainz|Williams|A|5">Carlos Sainz - Williams</option>
+                        </optgroup>
+                        <optgroup label="Tier B (3 points)">
+                            <option value="Lewis Hamilton|Ferrari|B|3">Lewis Hamilton - Ferrari</option>
+                            <option value="George Russell|Mercedes|B|3">George Russell - Mercedes</option>
+                            <option value="Pierre Gasly|Alpine|B|3">Pierre Gasly - Alpine</option>
+                            <option value="Alexander Albon|Williams|B|3">Alexander Albon - Williams</option>
+                        </optgroup>
+                        <optgroup label="Tier C (1 point)">
+                            <option value="Fernando Alonso|Aston Martin|C|1">Fernando Alonso - Aston Martin</option>
+                            <option value="Franco Colapinto|Alpine|C|1">Franco Colapinto - Alpine</option>
+                            <option value="Lance Stroll|Aston Martin|C|1">Lance Stroll - Aston Martin</option>
+                            <option value="Nico Hulkenberg|Audi|C|1">Nico Hulkenberg - Audi</option>
+                            <option value="Gabriel Bortoleto|Audi|C|1">Gabriel Bortoleto - Audi</option>
+                            <option value="Sergio Perez|Cadillac|C|1">Sergio Perez - Cadillac</option>
+                            <option value="Valtteri Bottas|Cadillac|C|1">Valtteri Bottas - Cadillac</option>
+                            <option value="Esteban Ocon|Haas|C|1">Esteban Ocon - Haas</option>
+                            <option value="Oliver Bearman|Haas|C|1">Oliver Bearman - Haas</option>
+                            <option value="Kimi Antonelli|Mercedes|C|1">Kimi Antonelli - Mercedes</option>
+                            <option value="Liam Lawson|Racing Bulls|C|1">Liam Lawson - Racing Bulls</option>
+                            <option value="Arvid Lindblad|Racing Bulls|C|1">Arvid Lindblad - Racing Bulls</option>
+                            <option value="Isack Hadjar|Red Bull|C|1">Isack Hadjar - Red Bull</option>
+                        </optgroup>
+                    </select>
+                    </div>
+
+                    <!-- Constructor -->
+                    <div>
+                        <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--silver); font-size: 0.9rem;">CONSTRUCTOR</label>
+                        <select class="form-select" id="constructor" style="padding: 10px 15px;">
+                    <option value="">Select Constructor</option>
+                    <option value="Alpine">Alpine</option>
+                    <option value="Aston Martin">Aston Martin</option>
+                    <option value="Audi">Audi</option>
+                    <option value="Cadillac">Cadillac</option>
+                    <option value="Ferrari">Ferrari</option>
+                    <option value="Haas">Haas</option>
+                    <option value="McLaren">McLaren</option>
+                    <option value="Mercedes">Mercedes</option>
+                    <option value="Racing Bulls">Racing Bulls</option>
+                    <option value="Red Bull">Red Bull Racing</option>
+                    <option value="Williams">Williams</option>
+                </select>
+                </select>
+                    </div>
+
+                    <!-- Wildcard -->
+                    <div>
+                        <label style="display: block; font-weight: 700; margin-bottom: 8px; color: var(--gold); font-size: 0.9rem;">WILDCARD (Required - Lower Tier Only - +25% Bonus)</label>
+                        <select class="form-select" id="wildcard" style="padding: 10px 15px;">
+                    <option value="">Select Wildcard Driver</option>
+                    <optgroup label="Tier B Drivers (3 points)">
+                        <option value="driver|Lewis Hamilton|Ferrari|B|3">Lewis Hamilton - Ferrari (B)</option>
+                        <option value="driver|George Russell|Mercedes|B|3">George Russell - Mercedes (B)</option>
+                        <option value="driver|Pierre Gasly|Alpine|B|3">Pierre Gasly - Alpine (B)</option>
+                        <option value="driver|Alexander Albon|Williams|B|3">Alexander Albon - Williams (B)</option>
+                    </optgroup>
+                    <optgroup label="Tier C Drivers (1 point)">
+                        <option value="driver|Fernando Alonso|Aston Martin|C|1">Fernando Alonso - Aston Martin (C)</option>
+                        <option value="driver|Franco Colapinto|Alpine|C|1">Franco Colapinto - Alpine (C)</option>
+                        <option value="driver|Lance Stroll|Aston Martin|C|1">Lance Stroll - Aston Martin (C)</option>
+                        <option value="driver|Nico Hulkenberg|Audi|C|1">Nico Hulkenberg - Audi (C)</option>
+                        <option value="driver|Gabriel Bortoleto|Audi|C|1">Gabriel Bortoleto - Audi (C)</option>
+                        <option value="driver|Sergio Perez|Cadillac|C|1">Sergio Perez - Cadillac (C)</option>
+                        <option value="driver|Valtteri Bottas|Cadillac|C|1">Valtteri Bottas - Cadillac (C)</option>
+                        <option value="driver|Esteban Ocon|Haas|C|1">Esteban Ocon - Haas (C)</option>
+                        <option value="driver|Oliver Bearman|Haas|C|1">Oliver Bearman - Haas (C)</option>
+                        <option value="driver|Kimi Antonelli|Mercedes|C|1">Kimi Antonelli - Mercedes (C)</option>
+                        <option value="driver|Liam Lawson|Racing Bulls|C|1">Liam Lawson - Racing Bulls (C)</option>
+                        <option value="driver|Arvid Lindblad|Racing Bulls|C|1">Arvid Lindblad - Racing Bulls (C)</option>
+                        <option value="driver|Isack Hadjar|Red Bull|C|1">Isack Hadjar - Red Bull (C)</option>
+                    </optgroup>
+                </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="background: rgba(6, 255, 165, 0.1); border: 2px solid var(--sector-green);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-family: 'Orbitron'; font-weight: 700; font-size: 1.1rem; color: white;">TIER POINTS USED:</span>
+                    <span id="tier-total" style="font-family: 'Orbitron'; font-weight: 900; font-size: 1.8rem; color: var(--sector-green);">0 / 8</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 1rem;" onclick="saveLineup()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 8px;">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                    <polyline points="17 21 17 13 7 13 7 21"/>
+                    <polyline points="7 3 7 8 15 8"/>
+                </svg>
+                SAVE LINEUP
+            </button>
+        </div>
+
+        <!-- LIVE TAB -->
+        <div id="live-tab" class="tab-content">
+            <h1 class="page-title">LIVE RACE</h1>
+            
+            <div class="live-header">
+                <div class="live-title">ROUND 1 - AUSTRALIAN GP</div>
+                <div class="live-status">LAP 28 / 58</div>
+            </div>
+
+            <!-- Live Positions - Horizontal Top -->
+            <div class="card">
+                <div class="card-title">Live Positions</div>
+                <div class="live-positions-horizontal">
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P1</span>
+                        <span class="pos-chip-code">VER</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P2</span>
+                        <span class="pos-chip-code">LEC</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P3</span>
+                        <span class="pos-chip-code">NOR</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P4</span>
+                        <span class="pos-chip-code">PIA</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P5</span>
+                        <span class="pos-chip-code">HAM</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P6</span>
+                        <span class="pos-chip-code">RUS</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P7</span>
+                        <span class="pos-chip-code">SAI</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P8</span>
+                        <span class="pos-chip-code">GAS</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P9</span>
+                        <span class="pos-chip-code">ALO</span>
+                    </div>
+                    <div class="live-pos-chip">
+                        <span class="pos-chip-num">P10</span>
+                        <span class="pos-chip-code">ALB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Scores -->
+            <div class="card">
+                <div class="card-title">Live Team Scores</div>
+                
+                <div id="live-scores-container">
+                    <!-- Team 1 - Highest Score -->
+                    <div class="live-team-row">
+                        <div class="live-team-rank">1</div>
+                        <div class="live-team-info">
+                            <div class="live-team-name">Speed Demons</div>
+                            <div class="live-team-owner">Sarah Martinez</div>
+                        </div>
+                        <div class="live-team-breakdown">
+                            <span class="live-driver-score">D1: +25</span>
+                            <span class="live-driver-score">D2: +18</span>
+                            <span class="live-driver-score wildcard">WC: +25</span>
+                            <span class="live-constructor-score">C: +30</span>
+                        </div>
+                        <div class="live-team-total">98</div>
+                    </div>
+
+                    <!-- Team 2 -->
+                    <div class="live-team-row">
+                        <div class="live-team-rank">2</div>
+                        <div class="live-team-info">
+                            <div class="live-team-name">Apex Predators</div>
+                            <div class="live-team-owner">James Chen</div>
+                        </div>
+                        <div class="live-team-breakdown">
+                            <span class="live-driver-score">D1: +15</span>
+                            <span class="live-driver-score">D2: +12</span>
+                            <span class="live-driver-score wildcard">WC: +37</span>
+                            <span class="live-constructor-score">C: +30</span>
+                        </div>
+                        <div class="live-team-total">94</div>
+                    </div>
+
+                    <!-- Team 3 - You -->
+                    <div class="live-team-row highlight-user">
+                        <div class="live-team-rank">3</div>
+                        <div class="live-team-info">
+                            <div class="live-team-name">Pole Position</div>
+                            <div class="live-team-owner">You</div>
+                        </div>
+                        <div class="live-team-breakdown">
+                            <span class="live-driver-score">D1: +12</span>
+                            <span class="live-driver-score">D2: +10</span>
+                            <span class="live-driver-score wildcard">WC: +32</span>
+                            <span class="live-constructor-score">C: +28</span>
+                        </div>
+                        <div class="live-team-total">82</div>
+                    </div>
+
+                    <!-- Team 4 -->
+                    <div class="live-team-row">
+                        <div class="live-team-rank">4</div>
+                        <div class="live-team-info">
+                            <div class="live-team-name">Fast Lane</div>
+                            <div class="live-team-owner">Mike Johnson</div>
+                        </div>
+                        <div class="live-team-breakdown">
+                            <span class="live-driver-score">D1: +10</span>
+                            <span class="live-driver-score">D2: +8</span>
+                            <span class="live-driver-score wildcard">WC: +27</span>
+                            <span class="live-constructor-score">C: +30</span>
+                        </div>
+                        <div class="live-team-total">75</div>
+                    </div>
+
+                    <!-- Team 5 -->
+                    <div class="live-team-row">
+                        <div class="live-team-rank">5</div>
+                        <div class="live-team-info">
+                            <div class="live-team-name">Grid Warriors</div>
+                            <div class="live-team-owner">Emma Wilson</div>
+                        </div>
+                        <div class="live-team-breakdown">
+                            <span class="live-driver-score">D1: +8</span>
+                            <span class="live-driver-score">D2: +6</span>
+                            <span class="live-driver-score wildcard">WC: +25</span>
+                            <span class="live-constructor-score">C: +26</span>
+                        </div>
+                        <div class="live-team-total">65</div>
+                    </div>
+
+                    <!-- Team 6 -->
+                    <div class="live-team-row">
+                        <div class="live-team-rank">6</div>
+                        <div class="live-team-info">
+                            <div class="live-team-name">Checkered Flags</div>
+                            <div class="live-team-owner">Tom Brown</div>
+                        </div>
+                        <div class="live-team-breakdown">
+                            <span class="live-driver-score">D1: +6</span>
+                            <span class="live-driver-score">D2: +4</span>
+                            <span class="live-driver-score wildcard">WC: +18</span>
+                            <span class="live-constructor-score">C: +24</span>
+                        </div>
+                        <div class="live-team-total">52</div>
+                    </div>
+
+                    <!-- Team 7 -->
+                    <div class="live-team-row">
+                        <div class="live-team-rank">7</div>
+                        <div class="live-team-info">
+                            <div class="live-team-name">Pit Stop Pros</div>
+                            <div class="live-team-owner">Lisa Anderson</div>
+                        </div>
+                        <div class="live-team-breakdown">
+                            <span class="live-driver-score">D1: +4</span>
+                            <span class="live-driver-score">D2: +2</span>
+                            <span class="live-driver-score wildcard">WC: +15</span>
+                            <span class="live-constructor-score">C: +20</span>
+                        </div>
+                        <div class="live-team-total">41</div>
+                    </div>
+
+                    <!-- Team 8 - Lowest Score -->
+                    <div class="live-team-row">
+                        <div class="live-team-rank">8</div>
+                        <div class="live-team-info">
+                            <div class="live-team-name">DRS Masters</div>
+                            <div class="live-team-owner">David Lee</div>
+                        </div>
+                        <div class="live-team-breakdown">
+                            <span class="live-driver-score">D1: +2</span>
+                            <span class="live-driver-score">D2: +1</span>
+                            <span class="live-driver-score wildcard">WC: +10</span>
+                            <span class="live-constructor-score">C: +16</span>
+                        </div>
+                        <div class="live-team-total">29</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        
+        </div>
+
+        <!-- STANDINGS TAB -->
+        <div id="standings-tab" class="tab-content">
+            <h1 class="page-title">LEAGUE STANDINGS</h1>
+            
+            <div class="card">
+                <table class="standings-table">
+                    <thead>
+                        <tr>
+                            <th>POS</th>
+                            <th>TEAM</th>
+                            <th>OWNER</th>
+                            <th>POINTS</th>
+                            <th>LAST RACE</th>
+                        </tr>
+                    </thead>
+                    <tbody id="standings-body">
+                        <tr>
+                            <td class="pos">1</td>
+                            <td class="team-name">Speed Demons</td>
+                            <td>Sarah Martinez</td>
+                            <td class="points">568</td>
+                            <td>98</td>
+                        </tr>
+                        <tr>
+                            <td class="pos">2</td>
+                            <td class="team-name">Apex Predators</td>
+                            <td>James Chen</td>
+                            <td class="points">552</td>
+                            <td>94</td>
+                        </tr>
+                        <tr style="background: rgba(225, 6, 0, 0.1);">
+                            <td class="pos">3</td>
+                            <td class="team-name">Pole Position</td>
+                            <td>You</td>
+                            <td class="points">528</td>
+                            <td>82</td>
+                        </tr>
+                        <tr>
+                            <td class="pos">4</td>
+                            <td class="team-name">Fast Lane</td>
+                            <td>Mike Johnson</td>
+                            <td class="points">505</td>
+                            <td>75</td>
+                        </tr>
+                        <tr>
+                            <td class="pos">5</td>
+                            <td class="team-name">Grid Warriors</td>
+                            <td>Emma Wilson</td>
+                            <td class="points">482</td>
+                            <td>65</td>
+                        </tr>
+                        <tr>
+                            <td class="pos">6</td>
+                            <td class="team-name">Checkered Flags</td>
+                            <td>Tom Brown</td>
+                            <td class="points">458</td>
+                            <td>52</td>
+                        </tr>
+                        <tr>
+                            <td class="pos">7</td>
+                            <td class="team-name">Pit Stop Pros</td>
+                            <td>Lisa Anderson</td>
+                            <td class="points">434</td>
+                            <td>41</td>
+                        </tr>
+                        <tr>
+                            <td class="pos">8</td>
+                            <td class="team-name">DRS Masters</td>
+                            <td>David Lee</td>
+                            <td class="points">412</td>
+                            <td>29</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- RESULTS TAB -->
+        <div id="results-tab" class="tab-content">
+            <h1 class="page-title">MY RACE RESULTS</h1>
+            
+            <div class="card">
+                <div class="card-title">Select Owner</div>
+                <select class="form-select" id="owner-selector" onchange="loadOwnerResults()">
+                    <option value="you">You - Pole Position</option>
+                    <option value="sarah">Sarah Martinez - Speed Demons</option>
+                    <option value="james">James Chen - Apex Predators</option>
+                </select>
+            </div>
+
+            <div class="results-grid" id="results-container">
+                <div class="result-card">
+                    <div class="result-header">
+                        <span class="result-race">Round 3 - Japanese GP</span>
+                        <span class="result-date">April 6, 2026</span>
+                    </div>
+                    <div class="result-lineup">
+                        <div class="result-driver">D1: Max Verstappen (A)</div>
+                        <div class="result-driver">+25 pts</div>
+                        <div class="result-driver">D2: Lando Norris (A)</div>
+                        <div class="result-driver">+18 pts</div>
+                        <div class="result-driver">WC: George Russell (B) +25%</div>
+                        <div class="result-driver">+25 pts</div>
+                        <div class="result-driver">Constructor: Ferrari</div>
+                        <div class="result-driver">+30 pts</div>
+                    </div>
+                    <div class="result-total">TOTAL: 98 PTS</div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-header">
+                        <span class="result-race">Round 2 - Chinese GP</span>
+                        <span class="result-date">March 23, 2026</span>
+                    </div>
+                    <div class="result-lineup">
+                        <div class="result-driver">D1: Charles Leclerc (A)</div>
+                        <div class="result-driver">+18 pts</div>
+                        <div class="result-driver">D2: Oscar Piastri (A)</div>
+                        <div class="result-driver">+15 pts</div>
+                        <div class="result-driver">WC: Pierre Gasly (B) +25%</div>
+                        <div class="result-driver">+27 pts</div>
+                        <div class="result-driver">Constructor: Red Bull</div>
+                        <div class="result-driver">+30 pts</div>
+                    </div>
+                    <div class="result-total">TOTAL: 90 PTS</div>
+                </div>
+
+                <div class="result-card">
+                    <div class="result-header">
+                        <span class="result-race">Round 1 - Australian GP</span>
+                        <span class="result-date">March 16, 2026</span>
+                    </div>
+                    <div class="result-lineup">
+                        <div class="result-driver">D1: Max Verstappen (A)</div>
+                        <div class="result-driver">+25 pts</div>
+                        <div class="result-driver">D2: Carlos Sainz (A)</div>
+                        <div class="result-driver">+12 pts</div>
+                        <div class="result-driver">WC: Lewis Hamilton (B) +25%</div>
+                        <div class="result-driver">+20 pts</div>
+                        <div class="result-driver">Constructor: McLaren</div>
+                        <div class="result-driver">+30 pts</div>
+                    </div>
+                    <div class="result-total">TOTAL: 87 PTS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RULES TAB -->
+        <div id="rules-tab" class="tab-content">
+            <h1 class="page-title">LEAGUE RULES & SCORING</h1>
+            
+            <!-- Subtabs -->
+            <div class="rules-subtabs">
+                <button class="rules-subtab active" onclick="showRulesSubtab('scoring')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                        <line x1="12" y1="20" x2="12" y2="10"/>
+                        <line x1="18" y1="20" x2="18" y2="4"/>
+                        <line x1="6" y1="20" x2="6" y2="16"/>
+                    </svg>
+                    SCORING & TIERS
+                </button>
+                <button class="rules-subtab" onclick="showRulesSubtab('lineup-rules')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    LINEUP RULES
+                </button>
+            </div>
+
+            <!-- SCORING SUBTAB -->
+            <div id="scoring-content" class="rules-content active">
+                <div class="card">
+                    <div class="card-title">Scoring System</div>
+                    <div style="font-size: 1.05rem; line-height: 1.8;">
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: white;">Finish Points (P1-P10):</strong><br>
+                            <span style="color: var(--sector-green); font-family: 'Orbitron'; font-weight: 700;">25, 18, 15, 12, 10, 8, 6, 4, 2, 1</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: white;">Positions Gained/Lost:</strong><br>
+                            <span style="color: var(--sector-green);">+1 point</span> per position gained<br>
+                            <span style="color: var(--racing-red);">-1 point</span> per position lost
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: white;">Fastest Lap:</strong><br>
+                            <span style="color: var(--sector-green);">+3 points</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: white;">DNF (Did Not Finish):</strong><br>
+                            <span style="color: var(--racing-red);">-5 points</span>
+                        </div>
+                        
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: white;">Constructor Scoring:</strong><br>
+                            Sum of both drivers, <span style="color: var(--warning-yellow);">capped at 30 points</span>
+                        </div>
+
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: white;">Wildcard Bonus:</strong><br>
+                            Wildcard selection receives <span style="color: var(--gold);">+25% points</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"> Scoring Examples</div>
+                    <div style="font-size: 1rem; line-height: 1.8;">
+                        <div style="background: rgba(6, 255, 165, 0.05); padding: 15px; border-radius: 4px; margin-bottom: 15px;">
+                            <strong style="color: var(--sector-green);">Example 1: Driver finishes P3, started P5</strong><br>
+                            • Finish points: <span style="color: var(--sector-green);">+15</span><br>
+                            • Positions gained (5→3): <span style="color: var(--sector-green);">+2</span><br>
+                            • <strong>Total: 17 points</strong>
+                        </div>
+                        
+                        <div style="background: rgba(6, 255, 165, 0.05); padding: 15px; border-radius: 4px; margin-bottom: 15px;">
+                            <strong style="color: var(--sector-green);">Example 2: Driver finishes P1 with fastest lap, started P3</strong><br>
+                            • Finish points: <span style="color: var(--sector-green);">+25</span><br>
+                            • Positions gained (3→1): <span style="color: var(--sector-green);">+2</span><br>
+                            • Fastest lap: <span style="color: var(--sector-green);">+3</span><br>
+                            • Base total: <span style="color: white;">30 points</span><br>
+                            • If Wildcard: <span style="color: var(--gold);">30 × 1.25 = 37.5 points</span>
+                        </div>
+
+                        <div style="background: rgba(225, 6, 0, 0.05); padding: 15px; border-radius: 4px;">
+                            <strong style="color: var(--racing-red);">Example 3: Constructor scoring</strong><br>
+                            • Driver 1 scores: <span style="color: var(--sector-green);">25 points</span><br>
+                            • Driver 2 scores: <span style="color: var(--sector-green);">18 points</span><br>
+                            • Raw total: 43 points<br>
+                            • <strong>Constructor total: 30 points (capped)</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"> Driver Tier System</div>
+                    <div style="font-size: 1.05rem; line-height: 1.8;">
+                        <div style="margin-bottom: 12px;">
+                            <span class="tier-badge tier-a">TIER A</span> <strong style="color: white;">5 points</strong><br>
+                            <span style="opacity: 0.8;">Elite drivers (championship contenders, top teams)</span>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <span class="tier-badge tier-b">TIER B</span> <strong style="color: white;">3 points</strong><br>
+                            <span style="opacity: 0.8;">Mid-tier drivers (competitive midfield teams)</span>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <span class="tier-badge tier-c">TIER C</span> <strong style="color: white;">1 point</strong><br>
+                            <span style="opacity: 0.8;">Lower-tier drivers (rookies, backmarker teams)</span>
+                        </div>
+                        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                            <strong style="color: white;">Your 2-3 drivers must total 8 tier points or less</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="background: linear-gradient(135deg, rgba(6, 255, 165, 0.15), rgba(4, 180, 117, 0.1)); border: 2px solid var(--sector-green);">
+                    <div class="card-title"> AI-Powered Dynamic Tier System</div>
+                    <div style="font-size: 1.05rem; line-height: 1.8;">
+                        <div style="margin-bottom: 15px;">
+                            <strong style="color: white;">Automated Tier Adjustments</strong><br>
+                            Driver tiers are automatically recalculated after each race using AI analysis of:
+                        </div>
+                        <ul style="margin-left: 20px; margin-bottom: 15px;">
+                            <li style="margin-bottom: 8px;">Average finish position (last 3 races)</li>
+                            <li style="margin-bottom: 8px;">Points per race performance</li>
+                            <li style="margin-bottom: 8px;">Reliability percentage</li>
+                            <li style="margin-bottom: 8px;">Performance trends (improving/declining/stable)</li>
+                            <li style="margin-bottom: 8px;">Constructor performance data</li>
+                            <li style="margin-bottom: 8px;">Upcoming track characteristics</li>
+                        </ul>
+                        <div style="padding: 15px; background: rgba(255, 200, 0, 0.15); border-left: 4px solid var(--warning-yellow); border-radius: 4px;">
+                            <strong style="color: var(--warning-yellow);">⚠️ Important:</strong> 
+                            Tiers can change between races! A driver performing above/below their tier will be automatically adjusted. 
+                            Check tier updates before each race.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINEUP RULES SUBTAB -->
+            <div id="lineup-rules-content" class="rules-content">
+                <div class="card">
+                    <div class="card-title"> Lineup Requirements</div>
+                    <div style="font-size: 1.05rem; line-height: 1.8;">
+                        <div style="margin-bottom: 12px;">
+                            <strong style="color: white;">Required Selections:</strong>
+                        </div>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li style="margin-bottom: 8px;">2 Drivers</li>
+                            <li style="margin-bottom: 8px;">1 Constructor</li>
+                            <li style="margin-bottom: 8px;">1 Wildcard (REQUIRED - must be a lower-tier driver, Tier B or C only)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"> Lineup Restrictions</div>
+                    <div style="font-size: 1.05rem; line-height: 1.8;">
+                        <div style="background: rgba(225, 6, 0, 0.1); padding: 18px; border-left: 4px solid var(--racing-red); border-radius: 4px; margin-bottom: 15px;">
+                            <strong style="color: white; display: block; margin-bottom: 10px;">Rule 1: Maximum 1 driver per constructor</strong>
+                            You cannot select two drivers from the same team (e.g., can't pick both Verstappen and Hadjar from Red Bull).
+                        </div>
+
+                        <div style="background: rgba(225, 6, 0, 0.1); padding: 18px; border-left: 4px solid var(--racing-red); border-radius: 4px; margin-bottom: 15px;">
+                            <strong style="color: white; display: block; margin-bottom: 10px;">Rule 2: Constructor exclusion</strong>
+                            If you pick a constructor, you cannot pick any of its drivers as Driver 1, Driver 2, or Wildcard.
+                        </div>
+
+                        <div style="background: rgba(225, 6, 0, 0.1); padding: 18px; border-left: 4px solid var(--racing-red); border-radius: 4px; margin-bottom: 15px;">
+                            <strong style="color: white; display: block; margin-bottom: 10px;">Rule 3: Tier cap</strong>
+                            Total tier points for all drivers (Driver 1 + Driver 2 + Wildcard) must be ≤ 8 points.
+                        </div>
+
+                        <div style="background: rgba(225, 6, 0, 0.1); padding: 18px; border-left: 4px solid var(--racing-red); border-radius: 4px;">
+                            <strong style="color: white; display: block; margin-bottom: 10px;">Rule 4: Wildcard restrictions</strong>
+                            Wildcard MUST be selected and can ONLY be a Tier B (3 pts) or Tier C (1 pt) driver. 
+                            No Tier A drivers or constructors allowed as wildcard.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"> Season Rules</div>
+                    <div style="font-size: 1.05rem; line-height: 1.8;">
+                        <div style="padding: 20px; background: rgba(225, 6, 0, 0.1); border-left: 4px solid var(--racing-red); border-radius: 4px;">
+                            <strong style="color: white;">Attendance Requirement:</strong><br>
+                            You may miss up to <span style="color: var(--warning-yellow); font-weight: 700;">4 races</span>. 
+                            Miss <span style="color: var(--racing-red); font-weight: 700;">5 or more</span> and you are marked 
+                            <strong style="color: var(--racing-red);">DQ (Disqualified)</strong> in Season Standings.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title"> Submission Deadlines</div>
+                    <div style="font-size: 1.05rem; line-height: 1.8;">
+                        <ul style="margin-left: 20px;">
+                            <li style="margin-bottom: 12px;">Lineups must be submitted before each race's qualifying session</li>
+                            <li style="margin-bottom: 12px;">Late submissions will not be accepted</li>
+                            <li style="margin-bottom: 12px;">You can edit your lineup unlimited times before the deadline</li>
+                            <li style="margin-bottom: 12px;">Once the race starts, your lineup is locked</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ADMIN TAB -->
+        <div id="admin-tab" class="tab-content">
+            <h1 class="page-title">LEAGUE ADMINISTRATION</h1>
+            
+            <!-- Admin Subtabs -->
+            <div class="admin-subtabs">
+                <button class="admin-subtab active" onclick="showAdminSubtab('team-owners')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    TEAM OWNERS
+                </button>
+                <button class="admin-subtab" onclick="showAdminSubtab('drivers')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                    DRIVERS
+                </button>
+                <button class="admin-subtab" onclick="showAdminSubtab('races')">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; vertical-align: middle; margin-right: 6px;">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    RACES
+                </button>
+            </div>
+
+            <!-- TEAM OWNERS SUBTAB -->
+            <div id="team-owners-content" class="admin-content active">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div class="card-title" style="margin: 0;">Team Owners</div>
+                        <button class="btn btn-primary btn-small" onclick="openModal('owner')">+ ADD OWNER</button>
+                    </div>
+                    <div class="admin-grid" id="owners-list"></div>
+                </div>
+            </div>
+
+            <!-- DRIVERS SUBTAB -->
+            <div id="drivers-content" class="admin-content">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div class="card-title" style="margin: 0;">2026 F1 Drivers</div>
+                        <button class="btn btn-primary btn-small" onclick="openModal('driver')">+ ADD DRIVER</button>
+                    </div>
+                    <div class="admin-grid" id="drivers-list"></div>
+                </div>
+            </div>
+
+            <!-- RACES SUBTAB -->
+            <div id="races-content" class="admin-content">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div class="card-title" style="margin: 0;">2026 Race Calendar</div>
+                        <button class="btn btn-primary btn-small" onclick="openModal('race')">+ ADD RACE</button>
+                    </div>
+                    <div class="admin-grid" id="races-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Admin -->
+    <div class="modal" id="admin-modal">
+        <div class="modal-content">
+            <h2 class="modal-title" id="modal-title">Add Item</h2>
+            <form id="admin-form">
+                <div id="modal-fields"></div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">SAVE</button>
+                    <button type="button" class="btn btn-secondary" style="flex: 1;" onclick="closeModal()">CANCEL</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Team Code & Authentication System
+        let currentTeam = null;
+        let isLineupLocked = false;
+        let isAdminAuthenticated = false;
+        const ADMIN_PASSWORD = 'F1ADMIN2026'; // Change this to your secure password
+
+        // Admin Access Control
+        function showAdminTab() {
+            if (!isAdminAuthenticated) {
+                document.getElementById('admin-password-modal').style.display = 'flex';
+            } else {
+                // Already authenticated, show admin tab
+                showTab('admin');
+            }
+        }
+
+        function verifyAdminPassword() {
+            const password = document.getElementById('admin-password-input').value;
+            
+            if (password === ADMIN_PASSWORD) {
+                isAdminAuthenticated = true;
+                document.getElementById('admin-password-modal').style.display = 'none';
+                document.getElementById('admin-password-input').value = '';
+                showTab('admin');
+                
+                // Add admin indicator to header
+                const logo = document.querySelector('.logo');
+                if (!logo.querySelector('.admin-badge')) {
+                    const badge = document.createElement('div');
+                    badge.className = 'admin-badge';
+                    badge.style.cssText = 'font-size: 0.5rem; color: var(--racing-red); font-weight: 700; margin-top: 5px;';
+                    badge.textContent = '● ADMIN MODE';
+                    logo.appendChild(badge);
+                }
+            } else {
+                alert('❌ Incorrect admin password');
+                document.getElementById('admin-password-input').value = '';
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-password-modal').style.display = 'none';
+            document.getElementById('admin-password-input').value = '';
+        }
+
+        // Generate unique team code
+        function generateTeamCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let code = '';
+            for (let i = 0; i < 8; i++) {
+                code += chars.charAt(Math.floor(Math.random() * chars.length));
+                if (i === 3) code += '-';
+            }
+            return code;
+        }
+
+        function showLogin() {
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('registration-form').style.display = 'none';
+            document.getElementById('registration-success').style.display = 'none';
+        }
+
+        function showRegistration() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('registration-form').style.display = 'block';
+        }
+
+        function loginWithCode() {
+            const code = document.getElementById('team-code-input').value.toUpperCase().trim();
+            if (!code) {
+                alert('Please enter your team code');
+                return;
+            }
+            const teamData = localStorage.getItem('team-' + code);
+            if (teamData) {
+                currentTeam = JSON.parse(teamData);
+                document.getElementById('login-modal').style.display = 'none';
+                document.querySelector('.logo').innerHTML = `F1 FANTASY<div style="font-size: 0.5rem; opacity: 0.7; margin-top: 5px;">${currentTeam.teamName}</div>`;
+                alert(`Welcome back, ${currentTeam.ownerName}!`);
+            } else {
+                alert('Invalid team code. Please check and try again.');
+            }
+        }
+
+        function registerTeam() {
+            const teamName = document.getElementById('reg-team-name').value.trim();
+            const ownerName = document.getElementById('reg-owner-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            if (!teamName || !ownerName || !email) {
+                alert('Please fill in all fields');
+                return;
+            }
+            let teamCode;
+            do {
+                teamCode = generateTeamCode();
+            } while (localStorage.getItem('team-' + teamCode));
+            const team = {
+                code: teamCode,
+                teamName: teamName,
+                ownerName: ownerName,
+                email: email,
+                createdAt: new Date().toISOString(),
+                lineups: {}
+            };
+            localStorage.setItem('team-' + teamCode, JSON.stringify(team));
+            currentTeam = team;
+            document.getElementById('generated-code').textContent = teamCode;
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('registration-form').style.display = 'none';
+            document.getElementById('registration-success').style.display = 'block';
+        }
+
+        function enterWithNewCode() {
+            document.getElementById('login-modal').style.display = 'none';
+            document.querySelector('.logo').innerHTML = `F1 FANTASY<div style="font-size: 0.5rem; opacity: 0.7; margin-top: 5px;">${currentTeam.teamName}</div>`;
+        }
+
+        // Data Storage
+        let drivers = [
+            { id: 1, name: 'Charles Leclerc', team: 'Ferrari', tier: 'A', cost: 5 },
+            { id: 2, name: 'Lewis Hamilton', team: 'Ferrari', tier: 'B', cost: 3 },
+            { id: 3, name: 'Lando Norris', team: 'McLaren', tier: 'A', cost: 5 },
+            { id: 4, name: 'Max Verstappen', team: 'Red Bull', tier: 'A', cost: 5 },
+            { id: 5, name: 'Oscar Piastri', team: 'McLaren', tier: 'A', cost: 5 },
+            { id: 6, name: 'George Russell', team: 'Mercedes', tier: 'B', cost: 3 },
+            { id: 7, name: 'Carlos Sainz', team: 'Williams', tier: 'A', cost: 5 },
+            { id: 8, name: 'Fernando Alonso', team: 'Aston Martin', tier: 'C', cost: 1 },
+            { id: 9, name: 'Pierre Gasly', team: 'Alpine', tier: 'B', cost: 3 },
+            { id: 10, name: 'Kimi Antonelli', team: 'Mercedes', tier: 'C', cost: 1 },
+            { id: 11, name: 'Franco Colapinto', team: 'Alpine', tier: 'C', cost: 1 },
+            { id: 12, name: 'Lance Stroll', team: 'Aston Martin', tier: 'C', cost: 1 },
+            { id: 13, name: 'Nico Hulkenberg', team: 'Audi', tier: 'C', cost: 1 },
+            { id: 14, name: 'Gabriel Bortoleto', team: 'Audi', tier: 'C', cost: 1 },
+            { id: 15, name: 'Sergio Perez', team: 'Cadillac', tier: 'C', cost: 1 },
+            { id: 16, name: 'Valtteri Bottas', team: 'Cadillac', tier: 'C', cost: 1 },
+            { id: 17, name: 'Esteban Ocon', team: 'Haas', tier: 'C', cost: 1 },
+            { id: 18, name: 'Oliver Bearman', team: 'Haas', tier: 'C', cost: 1 },
+            { id: 19, name: 'Liam Lawson', team: 'Racing Bulls', tier: 'C', cost: 1 },
+            { id: 20, name: 'Arvid Lindblad', team: 'Racing Bulls', tier: 'C', cost: 1 },
+            { id: 21, name: 'Isack Hadjar', team: 'Red Bull', tier: 'C', cost: 1 },
+            { id: 22, name: 'Alexander Albon', team: 'Williams', tier: 'B', cost: 3 }
+        ];
+
+        let races = [
+            { id: 1, round: 1, name: 'Australian GP', location: 'Melbourne', date: '2026-03-16' },
+            { id: 2, round: 2, name: 'Chinese GP', location: 'Shanghai', date: '2026-03-23' },
+            { id: 3, round: 3, name: 'Japanese GP', location: 'Suzuka', date: '2026-04-06' }
+        ];
+
+        let owners = [
+            { id: 1, name: 'You', team: 'Pole Position', email: 'you@example.com' },
+            { id: 2, name: 'Sarah Martinez', team: 'Speed Demons', email: 'sarah@example.com' },
+            { id: 3, name: 'James Chen', team: 'Apex Predators', email: 'james@example.com' }
+        ];
+
+        let currentEditId = null;
+        let currentModalType = null;
+
+        // Tab Navigation
+        function showTab(tabName) {
+            // Check if trying to access admin without authentication
+            if (tabName === 'admin' && !isAdminAuthenticated) {
+                showAdminTab();
+                return;
+            }
+
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'admin') {
+                loadAdminData();
+            }
+        }
+
+        // Rules Subtab Navigation
+        function showRulesSubtab(subtabName) {
+            document.querySelectorAll('.rules-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.rules-subtab').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(subtabName + '-content').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Admin Subtab Navigation
+        function showAdminSubtab(subtabName) {
+            document.querySelectorAll('.admin-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.admin-subtab').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(subtabName + '-content').classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Lineup Functions
+        document.getElementById('driver1').addEventListener('change', updateTier);
+        document.getElementById('driver2').addEventListener('change', updateTier);
+        document.getElementById('wildcard').addEventListener('change', updateTier);
+
+        function updateTier() {
+            const d1 = document.getElementById('driver1').value;
+            const d2 = document.getElementById('driver2').value;
+            const wc = document.getElementById('wildcard').value;
+
+            let total = 0;
+
+            if (d1) total += parseInt(d1.split('|')[3]);
+            if (d2) total += parseInt(d2.split('|')[3]);
+            if (wc && wc.startsWith('driver')) total += parseInt(wc.split('|')[4]);
+
+            const display = document.getElementById('tier-total');
+            display.textContent = `${total} / 8`;
+            display.style.color = total > 8 ? 'var(--racing-red)' : 'var(--sector-green)';
+        }
+
+        function saveLineup() {
+            // Check if logged in
+            if (!currentTeam) {
+                alert('⚠️ Please log in with your team code first');
+                document.getElementById('login-modal').style.display = 'flex';
+                return;
+            }
+
+            const race = document.getElementById('race-selector').value;
+            const d1Value = document.getElementById('driver1').value;
+            const d2Value = document.getElementById('driver2').value;
+            const conValue = document.getElementById('constructor').value;
+            const wcValue = document.getElementById('wildcard').value;
+
+            // Validation errors array
+            const errors = [];
+
+            // Rule 1: Must have 2 drivers + 1 constructor + 1 wildcard
+            if (!d1Value || !d2Value || !conValue) {
+                errors.push('❌ You must select Driver 1, Driver 2, and Constructor');
+            }
+            
+            if (!wcValue) {
+                errors.push('❌ Wildcard selection is REQUIRED');
+            }
+
+            if (errors.length > 0) {
+                alert('⚠️ LINEUP VALIDATION FAILED\n\n' + errors.join('\n'));
+                return;
+            }
+
+            // Parse driver data
+            const d1Parts = d1Value.split('|'); // [name, team, tier, cost]
+            const d2Parts = d2Value.split('|');
+            const d1Name = d1Parts[0];
+            const d1Team = d1Parts[1];
+            const d1Tier = d1Parts[2];
+            const d1Cost = parseInt(d1Parts[3]);
+            const d2Name = d2Parts[0];
+            const d2Team = d2Parts[1];
+            const d2Tier = d2Parts[2];
+            const d2Cost = parseInt(d2Parts[3]);
+
+            // Wildcard data (always driver now, always lower tier B or C)
+            const wcParts = wcValue.split('|');
+            const wcType = wcParts[0]; // Should always be 'driver'
+            const wcName = wcParts[1];
+            const wcTeam = wcParts[2];
+            const wcTier = wcParts[3];
+            const wcCost = parseInt(wcParts[4]);
+
+            // Validate wildcard is not Tier A
+            if (wcTier === 'A') {
+                errors.push('❌ Wildcard cannot be a Tier A (top tier) driver');
+            }
+
+            // Rule 2: Max 1 driver per constructor
+            if (d1Team === d2Team) {
+                errors.push('❌ Cannot pick two drivers from the same constructor (' + d1Team + ')');
+            }
+
+            if (wcTeam === d1Team || wcTeam === d2Team) {
+                errors.push('❌ Wildcard driver cannot be from same constructor as Driver 1 or Driver 2');
+            }
+
+            // Rule 3: If you pick a constructor, you cannot pick one of its drivers
+            if (d1Team === conValue) {
+                errors.push('❌ Driver 1 (' + d1Name + ') cannot be from selected constructor (' + conValue + ')');
+            }
+            if (d2Team === conValue) {
+                errors.push('❌ Driver 2 (' + d2Name + ') cannot be from selected constructor (' + conValue + ')');
+            }
+            if (wcTeam === conValue) {
+                errors.push('❌ Wildcard driver cannot be from selected constructor (' + conValue + ')');
+            }
+
+            // Rule 4: Tier cap (drivers only) <= 8
+            const totalTierCost = d1Cost + d2Cost + wcCost;
+            if (totalTierCost > 8) {
+                errors.push('❌ Tier points exceed 8! Current: ' + totalTierCost + '/8');
+            }
+
+            // Show errors if any
+            if (errors.length > 0) {
+                alert('⚠️ LINEUP VALIDATION FAILED\n\n' + errors.join('\n\n'));
+                return;
+            }
+
+            // Save the lineup
+            const lineup = {
+                race: race,
+                d1: { name: d1Name, team: d1Team, tier: d1Tier },
+                d2: { name: d2Name, team: d2Team, tier: d2Tier },
+                constructor: conValue,
+                wildcard: { type: 'driver', name: wcName, tier: wcTier },
+                tierTotal: totalTierCost
+            };
+
+            // Store in localStorage
+            try {
+                // Save to team's lineups object
+                if (!currentTeam.lineups) currentTeam.lineups = {};
+                currentTeam.lineups[race] = lineup;
+                localStorage.setItem('team-' + currentTeam.code, JSON.stringify(currentTeam));
+                
+                // Also save to old format for compatibility
+                localStorage.setItem('f1-lineup-race-' + race, JSON.stringify(lineup));
+            } catch (e) {
+                console.log('Storage not available');
+            }
+
+            // Update banner
+            updateLineupBanner(lineup, race);
+
+            alert('✅ LINEUP SAVED!\n\nRound ' + race + ' lineup has been submitted.\nYou can edit it anytime before the race deadline.');
+        }
+
+        function updateLineupBanner(lineup, raceId) {
+            const banner = document.getElementById('submitted-lineup-banner');
+            const races = ['Australian GP', 'Chinese GP', 'Japanese GP', 'Bahrain GP', 'Saudi Arabian GP', 'Miami GP', 
+                           'Emilia Romagna GP', 'Monaco GP', 'Spanish GP', 'Canadian GP', 'Austrian GP', 'British GP',
+                           'Belgian GP', 'Hungarian GP', 'Dutch GP', 'Italian GP', 'Azerbaijan GP', 'Singapore GP',
+                           'United States GP', 'Mexico City GP', 'São Paulo GP', 'Las Vegas GP', 'Qatar GP', 'Abu Dhabi GP'];
+            
+            document.getElementById('banner-race').textContent = 'Round ' + raceId + ' - ' + races[parseInt(raceId) - 1];
+            document.getElementById('banner-d1').textContent = lineup.d1.name + ' (' + lineup.d1.tier + ')';
+            document.getElementById('banner-d2').textContent = lineup.d2.name + ' (' + lineup.d2.tier + ')';
+            document.getElementById('banner-constructor').textContent = lineup.constructor;
+            
+            let wcText = lineup.wildcard.name + ' (' + lineup.wildcard.tier + ')  +25%';
+            document.getElementById('banner-wildcard').textContent = wcText;
+            document.getElementById('banner-tier').textContent = lineup.tierTotal + ' / 8';
+            
+            banner.style.display = 'block';
+        }
+
+        function editSubmittedLineup() {
+            showTab('lineup');
+            document.querySelector('.nav-tab').click();
+        }
+
+        function loadRaceLineup() {
+            const race = document.getElementById('race-selector').value;
+            
+            // Try to load saved lineup
+            try {
+                const saved = localStorage.getItem('f1-lineup-race-' + race);
+                if (saved) {
+                    const lineup = JSON.parse(saved);
+                    updateLineupBanner(lineup, race);
+                    // Could also populate the form fields here
+                } else {
+                    document.getElementById('submitted-lineup-banner').style.display = 'none';
+                }
+            } catch (e) {
+                console.log('Could not load lineup');
+            }
+        }
+
+        function loadOwnerResults() {
+            // Load results for selected owner
+        }
+
+        // Admin Functions
+        function loadAdminData() {
+            loadDriversList();
+            loadRacesList();
+            loadOwnersList();
+        }
+
+        function loadDriversList() {
+            const container = document.getElementById('drivers-list');
+            container.innerHTML = drivers.map(d => `
+                <div class="admin-item">
+                    <div class="admin-info">
+                        <div class="admin-name">${d.name} <span class="tier-badge tier-${d.tier.toLowerCase()}">${d.tier}</span></div>
+                        <div class="admin-details">${d.team} • ${d.cost} points</div>
+                    </div>
+                    <div class="admin-actions">
+                        <button class="btn btn-secondary btn-small" onclick="editDriver(${d.id})">Edit</button>
+                        <button class="btn btn-secondary btn-small" onclick="deleteDriver(${d.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadRacesList() {
+            const container = document.getElementById('races-list');
+            container.innerHTML = races.map(r => `
+                <div class="admin-item">
+                    <div class="admin-info">
+                        <div class="admin-name">Round ${r.round}: ${r.name}</div>
+                        <div class="admin-details">${r.location} • ${new Date(r.date).toLocaleDateString()}</div>
+                    </div>
+                    <div class="admin-actions">
+                        <button class="btn btn-secondary btn-small" onclick="editRace(${r.id})">Edit</button>
+                        <button class="btn btn-secondary btn-small" onclick="deleteRace(${r.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadOwnersList() {
+            const container = document.getElementById('owners-list');
+            container.innerHTML = owners.map(o => `
+                <div class="admin-item">
+                    <div class="admin-info">
+                        <div class="admin-name">${o.name}</div>
+                        <div class="admin-details">Team: ${o.team} • ${o.email}</div>
+                    </div>
+                    <div class="admin-actions">
+                        <button class="btn btn-secondary btn-small" onclick="editOwner(${o.id})">Edit</button>
+                        <button class="btn btn-secondary btn-small" onclick="deleteOwner(${o.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal Functions
+        function openModal(type, editId = null) {
+            currentModalType = type;
+            currentEditId = editId;
+            const modal = document.getElementById('admin-modal');
+            const title = document.getElementById('modal-title');
+            const fields = document.getElementById('modal-fields');
+
+            if (type === 'driver') {
+                title.textContent = editId ? 'Edit Driver' : 'Add Driver';
+                const driver = editId ? drivers.find(d => d.id === editId) : {};
+                fields.innerHTML = `
+                    <div class="form-group">
+                        <label class="form-label">Driver Name</label>
+                        <input type="text" class="form-input" id="edit-name" value="${driver.name || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Team</label>
+                        <input type="text" class="form-input" id="edit-team" value="${driver.team || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tier</label>
+                        <select class="form-select" id="edit-tier" required>
+                            <option value="A" ${driver.tier === 'A' ? 'selected' : ''}>A (5 points)</option>
+                            <option value="B" ${driver.tier === 'B' ? 'selected' : ''}>B (3 points)</option>
+                            <option value="C" ${driver.tier === 'C' ? 'selected' : ''}>C (1 point)</option>
+                        </select>
+                    </div>
+                `;
+            } else if (type === 'race') {
+                title.textContent = editId ? 'Edit Race' : 'Add Race';
+                const race = editId ? races.find(r => r.id === editId) : {};
+                fields.innerHTML = `
+                    <div class="form-group">
+                        <label class="form-label">Round</label>
+                        <input type="number" class="form-input" id="edit-round" value="${race.round || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Race Name</label>
+                        <input type="text" class="form-input" id="edit-name" value="${race.name || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-input" id="edit-location" value="${race.location || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <input type="date" class="form-input" id="edit-date" value="${race.date || ''}" required>
+                    </div>
+                `;
+            } else if (type === 'owner') {
+                title.textContent = editId ? 'Edit Owner' : 'Add Owner';
+                const owner = editId ? owners.find(o => o.id === editId) : {};
+                fields.innerHTML = `
+                    <div class="form-group">
+                        <label class="form-label">Owner Name</label>
+                        <input type="text" class="form-input" id="edit-name" value="${owner.name || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Team Name</label>
+                        <input type="text" class="form-input" id="edit-team" value="${owner.team || ''}" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-input" id="edit-email" value="${owner.email || ''}" required>
+                    </div>
+                `;
+            }
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('admin-modal').classList.remove('active');
+            currentEditId = null;
+            currentModalType = null;
+        }
+
+        document.getElementById('admin-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (currentModalType === 'driver') {
+                const name = document.getElementById('edit-name').value;
+                const team = document.getElementById('edit-team').value;
+                const tier = document.getElementById('edit-tier').value;
+                const cost = tier === 'A' ? 5 : tier === 'B' ? 3 : 1;
+
+                if (currentEditId) {
+                    const driver = drivers.find(d => d.id === currentEditId);
+                    driver.name = name;
+                    driver.team = team;
+                    driver.tier = tier;
+                    driver.cost = cost;
+                } else {
+                    const newId = Math.max(...drivers.map(d => d.id), 0) + 1;
+                    drivers.push({ id: newId, name, team, tier, cost });
+                }
+                loadDriversList();
+            } else if (currentModalType === 'race') {
+                const round = parseInt(document.getElementById('edit-round').value);
+                const name = document.getElementById('edit-name').value;
+                const location = document.getElementById('edit-location').value;
+                const date = document.getElementById('edit-date').value;
+
+                if (currentEditId) {
+                    const race = races.find(r => r.id === currentEditId);
+                    race.round = round;
+                    race.name = name;
+                    race.location = location;
+                    race.date = date;
+                } else {
+                    const newId = Math.max(...races.map(r => r.id), 0) + 1;
+                    races.push({ id: newId, round, name, location, date });
+                }
+                races.sort((a, b) => a.round - b.round);
+                loadRacesList();
+            } else if (currentModalType === 'owner') {
+                const name = document.getElementById('edit-name').value;
+                const team = document.getElementById('edit-team').value;
+                const email = document.getElementById('edit-email').value;
+
+                if (currentEditId) {
+                    const owner = owners.find(o => o.id === currentEditId);
+                    owner.name = name;
+                    owner.team = team;
+                    owner.email = email;
+                } else {
+                    const newId = Math.max(...owners.map(o => o.id), 0) + 1;
+                    owners.push({ id: newId, name, team, email });
+                }
+                loadOwnersList();
+            }
+
+            closeModal();
+            alert('✅ Saved successfully!');
+        });
+
+        function editDriver(id) { openModal('driver', id); }
+        function editRace(id) { openModal('race', id); }
+        function editOwner(id) { openModal('owner', id); }
+
+        function deleteDriver(id) {
+            if (confirm('Delete this driver?')) {
+                drivers = drivers.filter(d => d.id !== id);
+                loadDriversList();
+                alert('✅ Driver deleted!');
+            }
+        }
+
+        function deleteRace(id) {
+            if (confirm('Delete this race?')) {
+                races = races.filter(r => r.id !== id);
+                loadRacesList();
+                alert('✅ Race deleted!');
+            }
+        }
+
+        function deleteOwner(id) {
+            if (confirm('Delete this owner?')) {
+                owners = owners.filter(o => o.id !== id);
+                loadOwnersList();
+                alert('✅ Owner deleted!');
+            }
+        }
+
+        // Initialize
+        window.onload = function() {
+            updateTier();
+            loadAdminData();
+            loadRaceLineup(); // Load saved lineup for current race
+            startCountdownTimer(); // Start the countdown
+        };
+
+        // Countdown Timer for Race Lock
+        function startCountdownTimer() {
+            // Set qualifying start time (Saturday before race, 2:00 PM EST)
+            // For demo: set to 48 hours from now
+            const lockTime = new Date();
+            lockTime.setHours(lockTime.getHours() + 48);
+            
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = lockTime - now;
+                
+                if (distance < 0) {
+                    document.getElementById('countdown-timer').innerHTML = "LOCKED";
+                    document.getElementById('countdown-timer').style.color = "var(--racing-red)";
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                let display = "";
+                if (days > 0) {
+                    display = `${days}d ${hours}h ${minutes}m`;
+                } else {
+                    display = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+                
+                document.getElementById('countdown-timer').innerHTML = display;
+                
+                // Color coding based on time remaining
+                if (distance < 3600000) { // Less than 1 hour
+                    document.getElementById('countdown-timer').style.color = "var(--racing-red)";
+                } else if (distance < 86400000) { // Less than 24 hours
+                    document.getElementById('countdown-timer').style.color = "var(--warning-yellow)";
+                } else {
+                    document.getElementById('countdown-timer').style.color = "white";
+                }
+            }
+            
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        // AI ANALYTICS SYSTEM - AUTOMATIC TIER ADJUSTMENT
+        
+        // Simulated race performance data (last 3 races)
+        const racePerformanceData = {
+            'Max Verstappen': { avgFinish: 1.3, avgPoints: 24.7, reliability: 100, trend: 'stable' },
+            'Charles Leclerc': { avgFinish: 2.7, avgPoints: 18.3, reliability: 95, trend: 'improving' },
+            'Lando Norris': { avgFinish: 3.3, avgPoints: 15.7, reliability: 100, trend: 'stable' },
+            'Lewis Hamilton': { avgFinish: 5.0, avgPoints: 11.3, reliability: 90, trend: 'declining' },
+            'Oscar Piastri': { avgFinish: 4.3, avgPoints: 13.0, reliability: 100, trend: 'improving' },
+            'George Russell': { avgFinish: 6.0, avgPoints: 9.3, reliability: 85, trend: 'stable' },
+            'Carlos Sainz': { avgFinish: 5.7, avgPoints: 10.0, reliability: 95, trend: 'improving' },
+            'Fernando Alonso': { avgFinish: 7.3, avgPoints: 6.7, reliability: 100, trend: 'declining' },
+            'Pierre Gasly': { avgFinish: 11.0, avgPoints: 2.3, reliability: 90, trend: 'improving' },
+            'Kimi Antonelli': { avgFinish: 14.7, avgPoints: 0.3, reliability: 70, trend: 'stable' }
+        };
+
+        const constructorPerformance = {
+            'Red Bull': { avgPoints: 48.3, trend: 'stable', strength: 'High downforce tracks', rating: 'A' },
+            'Ferrari': { avgPoints: 36.7, trend: 'improving', strength: 'Street circuits', rating: 'A' },
+            'McLaren': { avgPoints: 34.0, trend: 'improving', strength: 'Fast flowing tracks', rating: 'A' },
+            'Mercedes': { avgPoints: 25.3, trend: 'declining', strength: 'Low drag circuits', rating: 'B' },
+            'Aston Martin': { avgPoints: 14.7, trend: 'declining', strength: 'Medium downforce', rating: 'B' },
+            'Williams': { avgPoints: 12.0, trend: 'stable', strength: 'Power circuits', rating: 'B' },
+            'Alpine': { avgPoints: 8.5, trend: 'improving', strength: 'Mixed conditions', rating: 'C' },
+            'Audi': { avgPoints: 6.2, trend: 'stable', strength: 'Technical tracks', rating: 'C' },
+            'Haas': { avgPoints: 4.8, trend: 'stable', strength: 'Low downforce', rating: 'C' },
+            'Cadillac': { avgPoints: 3.1, trend: 'declining', strength: 'Street tracks', rating: 'C' },
+            'Racing Bulls': { avgPoints: 5.5, trend: 'stable', strength: 'Power tracks', rating: 'C' }
+        };
+
+        const upcomingTrackTypes = {
+            4: { name: 'Bahrain', type: 'High downforce', favors: ['Red Bull', 'Ferrari'] },
+            5: { name: 'Saudi Arabia', type: 'Street circuit', favors: ['Ferrari', 'McLaren'] },
+            6: { name: 'Miami', type: 'Street circuit', favors: ['Ferrari', 'Red Bull'] },
+            7: { name: 'Imola', type: 'Fast flowing', favors: ['McLaren', 'Red Bull'] }
+        };
+
+        function runPostRaceAdjustment() {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'ANALYZING RACE DATA...';
+            btn.disabled = true;
+
+            // Simulate AI processing
+            setTimeout(() => {
+                applyAutomaticTierAdjustments();
+                displayAdjustmentResults();
+                
+                document.getElementById('ai-adjustment-results').style.display = 'block';
+                btn.innerHTML = 'ADJUSTMENTS APPLIED';
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 3000);
+                
+                // Scroll to results
+                document.getElementById('ai-adjustment-results').scrollIntoView({ behavior: 'smooth' });
+            }, 2500);
+        }
+
+        function applyAutomaticTierAdjustments() {
+            const adjustments = [];
+
+            // Oscar Piastri: B -> A (strong performance)
+            const piastri = drivers.find(d => d.name === 'Oscar Piastri');
+            if (piastri && piastri.tier === 'B') {
+                piastri.tier = 'A';
+                piastri.cost = 5;
+                adjustments.push({
+                    driver: 'Oscar Piastri',
+                    oldTier: 'B',
+                    newTier: 'A',
+                    reason: 'Avg P4.3 finish, 100% reliability, improving trend'
+                });
+            }
+
+            // Lewis Hamilton: A -> B (underperforming)
+            const hamilton = drivers.find(d => d.name === 'Lewis Hamilton');
+            if (hamilton && hamilton.tier === 'A') {
+                hamilton.tier = 'B';
+                hamilton.cost = 3;
+                adjustments.push({
+                    driver: 'Lewis Hamilton',
+                    oldTier: 'A',
+                    newTier: 'B',
+                    reason: 'Avg P5.0 finish, declining trend, reliability concerns'
+                });
+            }
+
+            // Carlos Sainz: B -> A (consistent performance)
+            const sainz = drivers.find(d => d.name === 'Carlos Sainz');
+            if (sainz && sainz.tier === 'B') {
+                sainz.tier = 'A';
+                sainz.cost = 5;
+                adjustments.push({
+                    driver: 'Carlos Sainz',
+                    oldTier: 'B',
+                    newTier: 'A',
+                    reason: 'Avg P5.7, improving trend, 95% reliability'
+                });
+            }
+
+            // Fernando Alonso: B -> C (declining performance)
+            const alonso = drivers.find(d => d.name === 'Fernando Alonso');
+            if (alonso && alonso.tier === 'B') {
+                alonso.tier = 'C';
+                alonso.cost = 1;
+                adjustments.push({
+                    driver: 'Fernando Alonso',
+                    oldTier: 'B',
+                    newTier: 'C',
+                    reason: 'Avg P7.3, declining trend, team struggling'
+                });
+            }
+
+            // Pierre Gasly: C -> B (Alpine improvements)
+            const gasly = drivers.find(d => d.name === 'Pierre Gasly');
+            if (gasly && gasly.tier === 'C') {
+                gasly.tier = 'B';
+                gasly.cost = 3;
+                adjustments.push({
+                    driver: 'Pierre Gasly',
+                    oldTier: 'C',
+                    newTier: 'B',
+                    reason: 'Improving trend, Alpine upgrades paying off'
+                });
+            }
+
+            // Store adjustments for display
+            window.lastAdjustments = adjustments;
+
+            // Reload driver lists in admin
+            if (typeof loadDriversList === 'function') {
+                loadDriversList();
+            }
+
+            return adjustments;
+        }
+
+        function displayAdjustmentResults() {
+            // Summary
+            const summary = document.getElementById('adjustments-summary');
+            const adjustments = window.lastAdjustments || [];
+            
+            let summaryHtml = '<div style="display: grid; gap: 15px;">';
+            
+            if (adjustments.length === 0) {
+                summaryHtml += '<div style="text-align: center; padding: 30px; opacity: 0.7;">No tier adjustments needed. Current tiers remain optimal.</div>';
+            } else {
+                adjustments.forEach(adj => {
+                    const color = adj.newTier > adj.oldTier ? 'var(--racing-red)' : 'var(--sector-green)';
+                    const icon = adj.newTier > adj.oldTier ? '↓' : '↑';
+                    
+                    summaryHtml += `
+                        <div style="background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)); 
+                                    border-left: 4px solid ${color}; padding: 20px; border-radius: 8px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <strong style="color: white; font-size: 1.2rem;">${adj.driver}</strong>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span class="tier-badge tier-${adj.oldTier.toLowerCase()}">${adj.oldTier}</span>
+                                    <span style="font-size: 1.5rem;">${icon}</span>
+                                    <span class="tier-badge tier-${adj.newTier.toLowerCase()}">${adj.newTier}</span>
+                                </div>
+                            </div>
+                            <div style="opacity: 0.85; line-height: 1.5;">${adj.reason}</div>
+                        </div>
+                    `;
+                });
+            }
+            
+            summaryHtml += '</div>';
+            summary.innerHTML = summaryHtml;
+
+            // Updated drivers list
+            displayUpdatedDriversList();
+            displayConstructorRatings();
+            displayNextRaceAnalysis();
+        }
+
+        function displayUpdatedDriversList() {
+            const container = document.getElementById('updated-drivers-list');
+            
+            // Group drivers by tier
+            const tierA = drivers.filter(d => d.tier === 'A').sort((a, b) => a.name.localeCompare(b.name));
+            const tierB = drivers.filter(d => d.tier === 'B').sort((a, b) => a.name.localeCompare(b.name));
+            const tierC = drivers.filter(d => d.tier === 'C').sort((a, b) => a.name.localeCompare(b.name));
+            
+            let html = '<div style="display: grid; gap: 20px;">';
+            
+            // Tier A
+            html += '<div><div style="font-family: Orbitron; font-weight: 700; color: var(--gold); margin-bottom: 10px; font-size: 1.1rem;">⭐ TIER A (5 POINTS)</div>';
+            html += '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">';
+            tierA.forEach(d => {
+                const isNew = window.lastAdjustments?.some(a => a.driver === d.name && a.newTier === 'A');
+                html += `<div style="padding: 10px; background: rgba(255, 215, 0, 0.1); border-radius: 6px; border: 1px solid var(--gold);">
+                    ${d.name} ${isNew ? 'NEW' : ''}<br><span style="font-size: 0.85rem; opacity: 0.7;">${d.team}</span>
+                </div>`;
+            });
+            html += '</div></div>';
+            
+            // Tier B
+            html += '<div><div style="font-family: Orbitron; font-weight: 700; color: var(--silver); margin-bottom: 10px; font-size: 1.1rem;">⭐ TIER B (3 POINTS)</div>';
+            html += '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">';
+            tierB.forEach(d => {
+                const isNew = window.lastAdjustments?.some(a => a.driver === d.name && a.newTier === 'B');
+                html += `<div style="padding: 10px; background: rgba(192, 192, 192, 0.1); border-radius: 6px; border: 1px solid var(--silver);">
+                    ${d.name} ${isNew ? 'NEW' : ''}<br><span style="font-size: 0.85rem; opacity: 0.7;">${d.team}</span>
+                </div>`;
+            });
+            html += '</div></div>';
+            
+            // Tier C
+            html += '<div><div style="font-family: Orbitron; font-weight: 700; color: #CD7F32; margin-bottom: 10px; font-size: 1.1rem;">⭐ TIER C (1 POINT)</div>';
+            html += '<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px;">';
+            tierC.forEach(d => {
+                const isNew = window.lastAdjustments?.some(a => a.driver === d.name && a.newTier === 'C');
+                html += `<div style="padding: 10px; background: rgba(205, 127, 50, 0.1); border-radius: 6px; border: 1px solid #CD7F32;">
+                    ${d.name} ${isNew ? 'NEW' : ''}<br><span style="font-size: 0.85rem; opacity: 0.7;">${d.team}</span>
+                </div>`;
+            });
+            html += '</div></div>';
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function displayConstructorRatings() {
+            const container = document.getElementById('constructor-ratings');
+            let html = '<div style="display: grid; gap: 12px;">';
+            
+            Object.entries(constructorPerformance).forEach(([team, data]) => {
+                const trendColor = data.trend === 'improving' ? 'var(--sector-green)' : 
+                                  data.trend === 'declining' ? 'var(--racing-red)' : 'var(--warning-yellow)';
+                const trendIcon = data.trend === 'improving' ? '↗' : data.trend === 'declining' ? '↘' : '→';
+                
+                html += `
+                    <div style="background: rgba(255, 255, 255, 0.03); padding: 18px; border-radius: 8px; 
+                                border-left: 4px solid ${trendColor}; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <strong style="color: white; font-size: 1.1rem;">${team}</strong>
+                            <div style="margin-top: 5px; font-size: 0.9rem;">
+                                <span style="opacity: 0.7;">Performance:</span>
+                                <span style="color: ${trendColor}; font-weight: 700; margin-left: 5px;">
+                                    ${trendIcon} ${data.trend.toUpperCase()}
+                                </span>
+                                <span style="opacity: 0.7; margin-left: 15px;">Best at:</span>
+                                <span style="font-weight: 600; margin-left: 5px;">${data.strength}</span>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div class="tier-badge tier-${data.rating.toLowerCase()}">${data.rating}</div>
+                            <div style="font-family: Orbitron; font-size: 1.1rem; font-weight: 700; color: var(--sector-green); margin-top: 5px;">
+                                ${data.avgPoints} pts
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function displayNextRaceAnalysis() {
+            const container = document.getElementById('next-race-analysis');
+            const nextRace = upcomingTrackTypes[4];
+            
+            let html = `
+                <div style="background: rgba(6, 255, 165, 0.05); padding: 20px; border-radius: 8px; border-left: 4px solid var(--sector-green);">
+                    <div style="margin-bottom: 15px;">
+                        <strong style="color: white; font-size: 1.2rem;">${nextRace.name}</strong>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <span style="opacity: 0.7;">Track Type:</span>
+                        <span style="color: var(--warning-yellow); font-weight: 700; margin-left: 8px; font-size: 1.05rem;">
+                            ${nextRace.type}
+                        </span>
+                    </div>
+                    <div>
+                        <span style="opacity: 0.7;">Expected Leaders:</span>
+                        <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+                            ${nextRace.favors.map(team => 
+                                `<span style="background: rgba(6, 255, 165, 0.15); padding: 8px 16px; 
+                                              border-radius: 6px; font-weight: 700; border: 1px solid var(--sector-green);">
+                                    ${team}
+                                </span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div style="font-size: 0.95rem; line-height: 1.6; opacity: 0.85;">
+                            <strong>AI Recommendation:</strong> High downforce tracks favor Red Bull and Ferrari. 
+                            Consider Max Verstappen or Charles Leclerc for Driver 1. 
+                            Updated tier A drivers (Piastri, Sainz) are strong value picks.
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        function runAIAnalysis() {
+            // Legacy function - redirect to post-race adjustment
+            runPostRaceAdjustment();
+        }
+
+        function applyAIRecommendations() {
+            // No longer needed - adjustments are automatic
+            alert('Tier adjustments are now applied automatically after each race!');
+        }
+
+        function exportAIReport() {
+            const adjustments = window.lastAdjustments || [];
+            const report = `
+F1 FANTASY - AI TIER ADJUSTMENT REPORT
+Generated: ${new Date().toLocaleDateString()}
+Post-Race Analysis: Round 3
+
+TIER ADJUSTMENTS APPLIED:
+${adjustments.map(a => `- ${a.driver}: ${a.oldTier} → ${a.newTier}\n  Reason: ${a.reason}`).join('\n\n')}
+
+CONSTRUCTOR PERFORMANCE:
+- Red Bull: 48.3 avg pts (Stable, Rating: A)
+- Ferrari: 36.7 avg pts (Improving, Rating: A)
+- McLaren: 34.0 avg pts (Improving, Rating: A)
+- Mercedes: 25.3 avg pts (Declining, Rating: B)
+
+NEXT RACE PREDICTION (Round 4 - Bahrain):
+- Track Type: High downforce
+- Favored Teams: Red Bull, Ferrari
+- AI Recommendation: Consider Verstappen/Leclerc for Driver 1
+            `.trim();
+
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'f1-fantasy-tier-adjustments.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('✅ Tier adjustment report exported!');
+        }
+    </script>
+</body>
+</html>
